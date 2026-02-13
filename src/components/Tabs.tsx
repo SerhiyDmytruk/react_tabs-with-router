@@ -10,14 +10,14 @@ const tabs = [
 ];
 
 export const Tabs = () => {
-  const { tabsId } = useParams();
-  const activeTab: undefined | Tab = tabs.find(tab => tab.id === tabsId);
+  const { tabId } = useParams<{ tabId: string }>();
+  const activeTab: undefined | Tab = tabs.find(tab => tab.id === tabId);
 
   return (
     <>
       <h1 className="title">Tabs page</h1>
 
-      <div className="tabs is-boxed">
+      <div className="tabs is-boxed" data-cy="TabsComponent">
         <ul>
           {tabs.map((tab: Tab) => (
             <li
@@ -25,7 +25,9 @@ export const Tabs = () => {
               className={classNames({ 'is-active': activeTab?.id === tab.id })}
               key={tab.id}
             >
-              <Link to={`/tabs/${tab.id}`}>{tab.title}</Link>
+              <Link to={`/tabs/${tab.id}`} data-cy="TabLink">
+                {tab.title}
+              </Link>
             </li>
           ))}
         </ul>
